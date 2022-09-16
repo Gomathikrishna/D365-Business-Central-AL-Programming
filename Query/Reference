@@ -1,0 +1,3 @@
+Business Central query objects enable you to retrieve records from one or more tables and then combine the data into rows and columns in a single dataset. Query objects can also perform calculations on data, such finding the sum or average of all values in a column of the dataset.
+
+https://docs.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-query-object
