@@ -2,7 +2,7 @@ query 50107 "Top 5 Customers"
 {
     QueryType = Normal;
     Caption = 'Top 5 Customers';
-    TopNumberOfRows = 10;
+    TopNumberOfRows = 5;
     OrderBy = descending(Sales__LCY_Sum);
     QueryCategory = 'Customer List';
 
