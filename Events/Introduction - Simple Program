@@ -1,0 +1,48 @@
+// The following code creates codeunit that publishes the `OnAddressLineChanged` event.
+//Phase 1: PUBLISHING PHASE
+
+codeunit 50102 MyEventPublishersS
+{
+    [IntegrationEvent(false, false)]
+    procedure OnAddressLineChanged(line: Text[100])
+    begin
+    end;
+}
+
+// The following code extends the Customer Card page to raise the `OnAddressLineChanged` event
+// when the Address field is changed.
+//PHASE 2: RAISING EVENT
+pageextension 50110 MyCustomerExt extends "Customer Card"
+{
+    layout
+    {
+        modify(Address)
+        {
+            trigger OnBeforeValidate();
+            var
+                Publisher: Codeunit MyEventPublishersS;
+            begin
+                Publisher.OnAddressLineChanged(Rec.Address);
+            end;
+        }
+    }
+}
+
+// The following code creates an event subscriber codeunit.
+// It declares the `CheckAddressLine` event subscriber that listens for OnAddressLineChanged event.
+// The event subscriber displays a message in the client when '+' is used in the **Address** field.
+
+//PHASE 3: SUBSCRIBING THE EVENT
+codeunit 50103 MySubscriberss
+{
+    //Set the event subscribers to bind automatically to the event
+    EventSubscriberInstance = StaticAutomatic;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"MyEventPublishersS", 'OnAddressLineChanged', '', true, true)]
+    procedure CheckAddressLine(line: Text[100]);
+    begin
+        if (STRPOS(line, '+') > 0) then begin
+            MESSAGE('Can''t use a plus sign (+) in the address [' + line + ']');
+        end;
+    end;
+}
