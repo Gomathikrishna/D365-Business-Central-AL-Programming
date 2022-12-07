@@ -1,0 +1,13 @@
+<Table>
+<Customer>
+<No.>100000</No.>
+<Name>Ananth</Name>
+<Address>Chennai</Address>
+</Customer>
+
+<Customer>
+<No.>110000</No.>
+<Name>Vijay</Name>
+<Address>Bengaluru</Address>
+</Customer>
+</Table>
